@@ -1,19 +1,45 @@
 import React from "react";
-import { Text } from "react-native";
+import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import Background from "../../components/Background";
 
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import {
+  Container,
+  Form,
+  FormInput,
+  SubmitButton,
+  SignLink,
+  SignLinkText,
+} from "./styles";
 
 const SignIn: React.FC = () => {
+  const { navigate } = useNavigation();
+
   return (
     <Background>
-      <Text>SignIn</Text>
+      <Container>
+        <Image source={require("../../assets/logo.png")} />
+        <Form>
+          <FormInput
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Digite o seu e-mail"
+          />
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Sua senha secreta"
+          />
 
-      <Input placeholder="Insira seu nome" icon="call" />
-
-      <Button>Entrar</Button>
-      <Button loading={true}>Entrar</Button>
+          <SubmitButton>Acessar</SubmitButton>
+          <SignLink onPress={() => navigate("SignUp")}>
+            <SignLinkText>Criar conta gratuita</SignLinkText>
+          </SignLink>
+        </Form>
+      </Container>
     </Background>
   );
 };
