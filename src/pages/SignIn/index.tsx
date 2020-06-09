@@ -12,13 +12,18 @@ import {
   SignLink,
   SignLinkText,
 } from "./styles";
+import { useDispatch } from "react-redux";
+import { loginRequest } from "../../store/modules/users/actions";
 
 const SignIn: React.FC = () => {
   const { navigate } = useNavigation();
+  const dispatch = useDispatch();
 
   const passwordRef = useRef({} as TextInput);
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(loginRequest("gabrielfresatto@gmail.com", "12345678"));
+  }
 
   return (
     <Background>

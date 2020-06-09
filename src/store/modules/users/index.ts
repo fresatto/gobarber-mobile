@@ -21,10 +21,10 @@ export const users: Reducer<UserState, { type: string; payload: any }> = (
 ) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case "@users/SESSION_REQUEST": {
+      case "@users/LOGIN_REQUEST": {
         draft.loading = true;
       }
-      case "@users/SESSION_SUCCESS": {
+      case "@users/LOGIN_SUCCESS": {
         draft.loading = false;
         draft.token = action.payload.token;
       }
