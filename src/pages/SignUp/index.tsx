@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Image, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 import Background from "../../components/Background";
 
@@ -12,15 +13,23 @@ import {
   SignLink,
   SignLinkText,
 } from "./styles";
+import { signUpRequest } from "../../store/modules/users/actions";
 
 const SignUp: React.FC = () => {
   const { navigate } = useNavigation();
+  const dispatch = useDispatch();
 
   const nameRef = useRef({} as TextInput);
   const emailRef = useRef({} as TextInput);
   const passwordRef = useRef({} as TextInput);
 
-  function handleSubmit() {}
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit() {
+    dispatch(signUpRequest(name, email, password));
+  }
 
   return (
     <Background>
@@ -35,6 +44,8 @@ const SignUp: React.FC = () => {
             ref={nameRef}
             returnKeyType="next"
             onSubmitEditing={emailRef.current.focus}
+            value={name}
+            onChangeText={setName}
           />
           <FormInput
             icon="mail-outline"
@@ -45,6 +56,8 @@ const SignUp: React.FC = () => {
             ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={passwordRef.current.focus}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -53,6 +66,8 @@ const SignUp: React.FC = () => {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
 
           <SubmitButton onPress={handleSubmit}>Cadastrar</SubmitButton>

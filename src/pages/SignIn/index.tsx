@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Image, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -19,10 +19,13 @@ const SignIn: React.FC = () => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const passwordRef = useRef({} as TextInput);
 
   function handleSubmit() {
-    dispatch(loginRequest("gabrielfresatto@gmail.com", "12345678"));
+    dispatch(loginRequest(email, password));
   }
 
   return (
@@ -38,6 +41,8 @@ const SignIn: React.FC = () => {
             placeholder="Digite o seu e-mail"
             returnKeyType="next"
             onSubmitEditing={passwordRef.current.focus}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -46,6 +51,8 @@ const SignIn: React.FC = () => {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
 
           <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>

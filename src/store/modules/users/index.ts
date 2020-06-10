@@ -1,18 +1,26 @@
 import { Reducer } from "react";
 import produce from "immer";
 
+export interface UserResponseProps {
+  name: string;
+  email: string;
+  avatar: {
+    url: string;
+  };
+}
+
 export interface UserState {
-  user: null;
-  token: string;
+  user: UserResponseProps | null;
+  token: string | null;
   loading: boolean;
   logged: boolean;
 }
 
 const INITIAL_STATE: UserState = {
   user: null,
-  token: "token gabrielzinho",
   logged: false,
   loading: false,
+  token: null,
 };
 
 export const users: Reducer<UserState, { type: string; payload: any }> = (
@@ -28,7 +36,14 @@ export const users: Reducer<UserState, { type: string; payload: any }> = (
         draft.loading = false;
         draft.token = action.payload.token;
       }
+      case "@users/SIGN_UP_REQUEST": {
+        draft.loading = true;
+      }
+      case "@users/SIGN_UP_SUCCESS": {
+        draft.loading = false;
+      }
       default:
+        return draft;
     }
   });
 };
