@@ -70,6 +70,6 @@ function* signUp({ payload }: SignUpRequest) {
 }
 
 export default all([
-  takeLatest("@users/LOGIN_REQUEST", login),
-  takeLatest("@users/SIGN_UP_REQUEST", signUp),
+  takeLatest("@auth/LOGIN_REQUEST", login),
+  takeLatest("@auth/SIGN_UP_REQUEST", signUp),
 ]);

@@ -2,7 +2,7 @@ import { AuthResponseProps } from "./reducer";
 
 export function loginRequest(email: string, password: string) {
   return {
-    type: "@users/LOGIN_REQUEST",
+    type: "@auth/LOGIN_REQUEST",
     payload: {
       email,
       password,
@@ -12,7 +12,7 @@ export function loginRequest(email: string, password: string) {
 
 export function loginSuccess(token: string, user: AuthResponseProps) {
   return {
-    type: "@users/LOGIN_SUCCESS",
+    type: "@auth/LOGIN_SUCCESS",
     payload: {
       user,
       token,
@@ -22,7 +22,7 @@ export function loginSuccess(token: string, user: AuthResponseProps) {
 
 export function signUpRequest(name: string, email: string, password: string) {
   return {
-    type: "@users/SIGN_UP_REQUEST",
+    type: "@auth/SIGN_UP_REQUEST",
     payload: {
       name,
       email,
@@ -33,7 +33,7 @@ export function signUpRequest(name: string, email: string, password: string) {
 
 export function signUpSuccess(name: string, email: string) {
   return {
-    type: "@users/SIGN_UP_SUCCESS",
+    type: "@auth/SIGN_UP_SUCCESS",
     payload: {
       name,
       email,

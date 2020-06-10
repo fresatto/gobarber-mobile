@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
   const passwordRef = useRef({} as TextInput);
 
   function handleSubmit() {
-    dispatch(loginRequest(email, password));
+    dispatch(loginRequest("renanfresatto@gmail.com", "12345678"));
   }
 
   return (
