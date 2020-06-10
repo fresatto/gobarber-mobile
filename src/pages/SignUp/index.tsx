@@ -13,7 +13,7 @@ import {
   SignLink,
   SignLinkText,
 } from "./styles";
-import { signUpRequest } from "../../store/modules/users/actions";
+import { signUpRequest } from "../../store/modules/auth/actions";
 import { ApplicationState } from "../../store/modules/rootReducer";
 
 const SignUp: React.FC = () => {

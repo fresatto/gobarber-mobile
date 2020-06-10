@@ -13,13 +13,13 @@ import {
   SignLinkText,
 } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { loginRequest } from "../../store/modules/users/actions";
+import { loginRequest } from "../../store/modules/auth/actions";
 import { ApplicationState } from "../../store/modules/rootReducer";
 
 const SignIn: React.FC = () => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
-  const user = useSelector((state: ApplicationState) => state.users);
+  const user = useSelector((state: ApplicationState) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

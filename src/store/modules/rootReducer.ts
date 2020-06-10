@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 
-import { users, UserState } from "./users";
+import auth, { AuthState } from "./auth/reducer";
 
 export interface ApplicationState {
-  users: UserState;
+  auth: AuthState;
 }
 
 const reducers = combineReducers({
-  users,
+  auth,
 });
 
 export default reducers;
