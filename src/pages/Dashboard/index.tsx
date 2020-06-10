@@ -1,6 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
+import Background from "../../components/Background";
 
-const Dashboard: React.FC = () => <Text>ALO</Text>;
+const Dashboard: React.FC = () => <Background />;
 
 export default Dashboard;

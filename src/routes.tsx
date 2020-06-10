@@ -2,12 +2,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useSelector } from "react-redux";
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 
+import { ApplicationState } from "./store/modules/rootReducer";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { useSelector } from "react-redux";
-import { ApplicationState } from "./store/modules/rootReducer";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,8 +25,45 @@ function Sign() {
 
 function App() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Dashboard" component={Dashboard} />
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: "#fff",
+        keyboardHidesTabBar: true,
+        inactiveTintColor: "rgba(255, 255,255, 0.6)",
+        tabStyle: {
+          borderTopColor: "red",
+          borderColor: "red",
+          borderWidth: 0,
+        },
+        style: {
+          backgroundColor: "#8d41a8",
+          height: 70,
+          paddingBottom: 10,
+          paddingTop: 10,
+          borderTopWidth: 0,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarLabel: "Agendamento",
+          tabBarIcon: ({ color }) => (
+            <Icon name="event" color={color} size={23} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Perfil",
+          tabBarIcon: ({ color }) => (
+            <Icon name="person" color={color} size={23} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
