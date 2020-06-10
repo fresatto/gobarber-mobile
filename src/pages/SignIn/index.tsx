@@ -12,12 +12,14 @@ import {
   SignLink,
   SignLinkText,
 } from "./styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../../store/modules/users/actions";
+import { ApplicationState } from "../../store/modules/rootReducer";
 
 const SignIn: React.FC = () => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
+  const user = useSelector((state: ApplicationState) => state.users);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +57,9 @@ const SignIn: React.FC = () => {
             onChangeText={setPassword}
           />
 
-          <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>
+          <SubmitButton onPress={handleSubmit} loading={user.loading}>
+            Acessar
+          </SubmitButton>
           <SignLink onPress={() => navigate("SignUp")}>
             <SignLinkText>Criar conta gratuita</SignLinkText>
           </SignLink>

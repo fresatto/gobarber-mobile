@@ -1,4 +1,4 @@
-import { all, put, takeLatest, call } from "redux-saga/effects";
+import { all, put, takeLatest, call, delay } from "redux-saga/effects";
 
 import { loginSuccess, signUpSuccess } from "./actions";
 
@@ -41,6 +41,7 @@ function* login({ payload }: LoginRequest) {
       return;
     }
 
+    yield delay(3000);
     yield put(loginSuccess(token, user));
   } catch (err) {
     Alert.alert(

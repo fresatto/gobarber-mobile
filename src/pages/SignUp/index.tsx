@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Image, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Background from "../../components/Background";
 
@@ -14,10 +14,12 @@ import {
   SignLinkText,
 } from "./styles";
 import { signUpRequest } from "../../store/modules/users/actions";
+import { ApplicationState } from "../../store/modules/rootReducer";
 
 const SignUp: React.FC = () => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
+  const user = useSelector((state: ApplicationState) => state.users);
 
   const nameRef = useRef({} as TextInput);
   const emailRef = useRef({} as TextInput);
@@ -70,7 +72,9 @@ const SignUp: React.FC = () => {
             onChangeText={setPassword}
           />
 
-          <SubmitButton onPress={handleSubmit}>Cadastrar</SubmitButton>
+          <SubmitButton onPress={handleSubmit} loading={user.loading}>
+            Cadastrar
+          </SubmitButton>
           <SignLink onPress={() => navigate("SignIn")}>
             <SignLinkText>Voltar</SignLinkText>
           </SignLink>

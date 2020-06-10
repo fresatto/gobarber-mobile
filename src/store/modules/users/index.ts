@@ -31,16 +31,21 @@ export const users: Reducer<UserState, { type: string; payload: any }> = (
     switch (action.type) {
       case "@users/LOGIN_REQUEST": {
         draft.loading = true;
+        break;
       }
       case "@users/LOGIN_SUCCESS": {
         draft.loading = false;
         draft.token = action.payload.token;
+        draft.user = action.payload.user;
+        break;
       }
       case "@users/SIGN_UP_REQUEST": {
         draft.loading = true;
+        break;
       }
       case "@users/SIGN_UP_SUCCESS": {
         draft.loading = false;
+        break;
       }
       default:
         return draft;
