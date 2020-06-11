@@ -15,15 +15,7 @@ const Dashboard: React.FC = () => {
       try {
         const { data } = await api.get("/appointments");
 
-        const parsedData = data.map((item: AppointmentResponse) => {
-          return produce(item, (draft) => {
-            draft.provider.avatar.url = draft.provider.avatar.url.replace(
-              "localhost",
-              "192.168.0.36"
-            );
-          });
-        });
-        setAppointments(parsedData);
+        setAppointments(data);
       } catch (err) {
         Alert.alert("Erro", "Não foi possível carregar os agendamentos");
       }

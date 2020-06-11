@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.View<{ past: boolean }>`
   margin-bottom: 15px;
   padding: 20px;
   border-radius: 4px;
@@ -9,6 +9,8 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  opacity: ${(props) => (props.past ? 0.7 : 1)};
 `;
 
 export const Left = styled.View`
