@@ -23,9 +23,10 @@ export interface AppointmentResponse {
 
 interface AppointmentProps {
   data: AppointmentResponse;
+  onCancel: () => void;
 }
 
-const Appointment: React.FC<AppointmentProps> = ({ data }) => {
+const Appointment: React.FC<AppointmentProps> = ({ data, onCancel }) => {
   const avatarUrl = data.provider.avatar
     ? data.provider.avatar.url.replace("localhost", "192.168.0.36")
     : `https://api.adorable.io/avatar/50/${data.provider.name}.png`;
@@ -50,8 +51,8 @@ const Appointment: React.FC<AppointmentProps> = ({ data }) => {
         </Info>
       </Left>
 
-      {data.cancelable && (
-        <TouchableOpacity onPress={() => {}}>
+      {data.cancelable && !data.canceled_at && (
+        <TouchableOpacity onPress={() => onCancel()}>
           <Icon name="event-busy" size={20} color="#f64c75" />
         </TouchableOpacity>
       )}
