@@ -9,7 +9,7 @@ import rootSagas from "./modules/rootSagas";
 const persistConfig = {
   key: "gobarber",
   storage: AsyncStorage,
-  whitelist: ["users"],
+  whitelist: ["auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

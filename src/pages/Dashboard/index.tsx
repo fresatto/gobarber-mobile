@@ -1,22 +1,45 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Alert } from "react-native";
+import produce from "immer";
 
 import { Container, Title, List } from "./styles";
 import Background from "../../components/Background";
-import Appointment from "../../components/Appointment";
-
-const data = [1, 2, 3, 4, 5];
+import Appointment, { AppointmentResponse } from "../../components/Appointment";
+import api from "../../services/api";
 
 const Dashboard: React.FC = () => {
+  const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
+
+  useEffect(() => {
+    async function loadAppointments() {
+      try {
+        const { data } = await api.get("/appointments");
+
+        const parsedData = data.map((item: AppointmentResponse) => {
+          return produce(item, (draft) => {
+            draft.provider.avatar.url = draft.provider.avatar.url.replace(
+              "localhost",
+              "192.168.0.36"
+            );
+          });
+        });
+        setAppointments(parsedData);
+      } catch (err) {
+        Alert.alert("Erro", "Não foi possível carregar os agendamentos");
+      }
+    }
+
+    loadAppointments();
+  }, []);
   return (
     <Background>
       <Container>
         <Title>Agendamentos</Title>
 
         <List
-          data={data}
-          keyExtractor={(item) => String(item)}
-          renderItem={({ item }) => <Appointment />}
+          data={appointments}
+          keyExtractor={(item: any) => String(item.id)}
+          renderItem={({ item }) => <Appointment data={item} />}
         />
       </Container>
     </Background>
