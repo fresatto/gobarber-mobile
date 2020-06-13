@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
 
         <List
           data={appointments}
-          keyExtractor={(item: any) => String(item.id)}
+          keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
             <Appointment data={item} onCancel={() => handleCancel(item.id)} />
           )}

@@ -10,7 +10,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
-import New from "./pages/Appointment/New";
+import SelectProvider from "./pages/Appointment/SelectProvider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
@@ -44,9 +44,9 @@ function NewAppointment() {
       }}
     >
       <Stack.Screen
-        component={New}
+        component={SelectProvider}
         name="new-appointment"
-        options={{ title: "Novo" }}
+        options={{ title: "Selecione o prestador" }}
       />
     </Stack.Navigator>
   );
