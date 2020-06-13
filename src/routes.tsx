@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
@@ -10,6 +10,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import New from "./pages/Appointment/New";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,6 +21,33 @@ function Sign() {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
+    </Stack.Navigator>
+  );
+}
+
+function NewAppointment() {
+  const navigation = useNavigation();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: "#fff",
+        headerTransparent: true,
+        headerTitleAlign: "center",
+        headerLeft: (props) => (
+          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
+            <Icon name="chevron-left" size={20} color="#fff" />
+          </TouchableOpacity>
+        ),
+        headerLeftContainerStyle: {
+          marginLeft: 20,
+        },
+      }}
+    >
+      <Stack.Screen
+        component={New}
+        name="new-appointment"
+        options={{ title: "Novo" }}
+      />
     </Stack.Navigator>
   );
 }
@@ -51,6 +80,17 @@ function App() {
           tabBarLabel: "Agendamento",
           tabBarIcon: ({ color }) => (
             <Icon name="event" color={color} size={23} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="New"
+        component={NewAppointment}
+        options={{
+          tabBarVisible: false,
+          tabBarLabel: "Agendar",
+          tabBarIcon: ({ color }) => (
+            <Icon name="add-circle-outline" color={color} size={20} />
           ),
         }}
       />
