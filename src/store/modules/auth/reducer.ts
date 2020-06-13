@@ -1,6 +1,5 @@
 import { Reducer } from "react";
 import produce from "immer";
-import { UserProps } from "../user/reducer";
 
 export interface AuthState {
   token: string | null;

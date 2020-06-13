@@ -1,10 +1,11 @@
-import { createStore, applyMiddleware, Store } from "redux";
+import { createStore, applyMiddleware, compose, Store } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import createSagaMiddleware from "redux-saga";
 
 import reducers, { ApplicationState } from "./modules/rootReducer";
 import rootSagas from "./modules/rootSagas";
+import tron from "../config/ReactotronConfig";
 
 const persistConfig = {
   key: "gobarber",
@@ -18,7 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store: Store<ApplicationState> = createStore(
   persistedReducer,
-  applyMiddleware(sagaMiddleware)
+  compose(applyMiddleware(sagaMiddleware), tron.createEnhancer())
 );
 const persistor = persistStore(store);
 
