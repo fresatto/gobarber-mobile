@@ -19,7 +19,7 @@ import { ApplicationState } from "../../store/modules/rootReducer";
 const SignUp: React.FC = () => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
-  const user = useSelector((state: ApplicationState) => state.users);
+  const auth = useSelector((state: ApplicationState) => state.auth);
 
   const nameRef = useRef({} as TextInput);
   const emailRef = useRef({} as TextInput);
@@ -72,7 +72,7 @@ const SignUp: React.FC = () => {
             onChangeText={setPassword}
           />
 
-          <SubmitButton onPress={handleSubmit} loading={user.loading}>
+          <SubmitButton onPress={handleSubmit} loading={auth.loading}>
             Cadastrar
           </SubmitButton>
           <SignLink onPress={() => navigate("SignIn")}>

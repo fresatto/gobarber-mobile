@@ -1,23 +1,14 @@
 import { Reducer } from "react";
 import produce from "immer";
-
-export interface AuthResponseProps {
-  name: string;
-  email: string;
-  avatar: {
-    url: string;
-  };
-}
+import { UserProps } from "../user/reducer";
 
 export interface AuthState {
-  user: AuthResponseProps | null;
   token: string | null;
   loading: boolean;
   logged: boolean;
 }
 
 const INITIAL_STATE: AuthState = {
-  user: null,
   logged: false,
   loading: false,
   token: null,
@@ -37,7 +28,6 @@ export const auth: Reducer<AuthState, { type: string; payload: any }> = (
         draft.loading = false;
         draft.logged = true;
         draft.token = action.payload.token;
-        draft.user = action.payload.user;
         break;
       }
       case "@auth/SIGN_UP_REQUEST": {

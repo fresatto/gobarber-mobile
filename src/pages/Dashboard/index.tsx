@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
-import produce from "immer";
 
 import { Container, Title, List } from "./styles";
 import Background from "../../components/Background";

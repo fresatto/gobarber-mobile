@@ -37,9 +37,9 @@ function App() {
         },
         style: {
           backgroundColor: "#8d41a8",
-          height: 70,
-          paddingBottom: 10,
-          paddingTop: 10,
+          // height: 70,
+          // paddingBottom: 10,
+          // paddingTop: 10,
           borderTopWidth: 0,
         },
       }}
