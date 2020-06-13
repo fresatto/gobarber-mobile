@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { TextInput, Text } from "react-native";
 
 import Background from "../../components/Background";
@@ -9,10 +9,12 @@ import {
   FormInput,
   SubmitButton,
   Separator,
+  LogoutButton,
 } from "./styles";
 import { ApplicationState } from "../../store/modules/rootReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserRequest } from "../../store/modules/user/actions";
+import { signOut } from "../../store/modules/auth/actions";
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
@@ -40,16 +42,24 @@ const Profile: React.FC = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  useEffect(() => {
+    setPassword("");
+    setOldPassword("");
+    setConfirmPassword("");
+  }, [profile]);
+
   function handleSubmit() {
     dispatch(
-      updateUserRequest(name, email, password, oldPassword, confirmPassword)
+      updateUserRequest(name, email, oldPassword, password, confirmPassword)
     );
+  }
+  function handleLogout() {
+    dispatch(signOut());
   }
   return (
     <Background>
       <Container>
         <Title>Meu perfil</Title>
-
         <Form>
           <FormInput
             icon="person-outline"
@@ -113,6 +123,7 @@ const Profile: React.FC = () => {
           <SubmitButton onPress={handleSubmit} loading={loading}>
             Atualizar perfil
           </SubmitButton>
+          <LogoutButton onPress={handleLogout}>Sair do GoBarber</LogoutButton>
         </Form>
       </Container>
     </Background>

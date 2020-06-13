@@ -1,6 +1,6 @@
 import { all, put, takeLatest, call, delay } from "redux-saga/effects";
 
-import { loginSuccess, signUpSuccess } from "./actions";
+import { loginSuccess, signUpSuccess, authRequestError } from "./actions";
 
 import api from "../../../services/api";
 import { Alert } from "react-native";
@@ -48,6 +48,7 @@ function* login({ payload }: LoginRequest) {
       "Falha na autenticação",
       "Houve um erro no login, verifique seus dados"
     );
+    yield put(authRequestError());
   }
 }
 

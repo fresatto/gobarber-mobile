@@ -37,6 +37,15 @@ export const auth: Reducer<AuthState, { type: string; payload: any }> = (
         draft.loading = false;
         break;
       }
+      case "@auth/SIGN_OUT": {
+        draft.logged = false;
+        draft.token = null;
+        break;
+      }
+      case "@auth/REQUEST_ERROR": {
+        draft.loading = false;
+        break;
+      }
       default:
         return draft;
     }

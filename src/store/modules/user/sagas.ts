@@ -16,7 +16,7 @@ interface UpdateUserRequest {
 
 function* updateUser({ payload }: UpdateUserRequest) {
   try {
-    const { name, email, oldPassword, password, confirmPassword } = payload;
+    const { name, email, password } = payload;
 
     const { data } = yield call(
       api.put,
@@ -25,6 +25,7 @@ function* updateUser({ payload }: UpdateUserRequest) {
     );
 
     yield put(updateUserSuccess(data));
+    Alert.alert("Sucesso", "Perfil atualizado com sucesso!");
   } catch {
     yield put(userRequestFail());
     Alert.alert(

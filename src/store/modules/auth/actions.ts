@@ -15,6 +15,7 @@ export function loginSuccess(token: string, user: UserProps) {
     type: "@auth/LOGIN_SUCCESS",
     payload: {
       token,
+      user,
     },
   };
 }
@@ -37,5 +38,17 @@ export function signUpSuccess(name: string, email: string) {
       name,
       email,
     },
+  };
+}
+
+export function authRequestError() {
+  return {
+    type: "@auth/REQUEST_ERROR",
+  };
+}
+
+export function signOut() {
+  return {
+    type: "@auth/SIGN_OUT",
   };
 }
