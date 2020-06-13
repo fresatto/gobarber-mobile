@@ -11,5 +11,5 @@ const tron = Reactotron.setAsyncStorageHandler(AsyncStorage) // AsyncStorage wou
   .connect(); // let's connect!
 
 tron.clear();
-
+// console.tron = tron;
 export default tron;

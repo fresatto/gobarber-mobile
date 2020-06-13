@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import SelectProvider from "./pages/Appointment/SelectProvider";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import SelectDate from "./pages/Appointment/SelectDate";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,15 +30,11 @@ function NewAppointment() {
   const navigation = useNavigation();
   return (
     <Stack.Navigator
+      initialRouteName="SelectProvider"
       screenOptions={{
         headerTintColor: "#fff",
         headerTransparent: true,
         headerTitleAlign: "center",
-        headerLeft: (props) => (
-          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
-            <Icon name="chevron-left" size={20} color="#fff" />
-          </TouchableOpacity>
-        ),
         headerLeftContainerStyle: {
           marginLeft: 20,
         },
@@ -45,8 +42,29 @@ function NewAppointment() {
     >
       <Stack.Screen
         component={SelectProvider}
-        name="new-appointment"
-        options={{ title: "Selecione o prestador" }}
+        name="SelectProvider"
+        options={{
+          title: "Selecione o prestador",
+          headerLeft: (props) => (
+            <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        component={SelectDate}
+        name="SelectDate"
+        options={{
+          title: "Selecione um horário",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SelectProvider")}
+            >
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        }}
       />
     </Stack.Navigator>
   );
