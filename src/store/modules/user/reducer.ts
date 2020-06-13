@@ -37,6 +37,11 @@ const user: Reducer = (state = INITIAL_STATE, action) => {
         draft.profile = action.payload.user;
         break;
       }
+      case "@user/REQUEST_ERROR": {
+        draft.loading = false;
+        draft.error = true;
+        break;
+      }
       default:
     }
   });

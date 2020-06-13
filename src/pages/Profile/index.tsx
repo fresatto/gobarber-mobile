@@ -11,16 +11,21 @@ import {
   Separator,
 } from "./styles";
 import { ApplicationState } from "../../store/modules/rootReducer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserRequest } from "../../store/modules/user/actions";
 
 const Profile: React.FC = () => {
+  const dispatch = useDispatch();
+
   const nameRef = useRef({} as TextInput);
   const emailRef = useRef({} as TextInput);
   const oldPasswordRef = useRef({} as TextInput);
   const passwordRef = useRef({} as TextInput);
   const confirmPasswordRef = useRef({} as TextInput);
 
-  const { profile } = useSelector((state: ApplicationState) => state.user);
+  const { profile, loading } = useSelector(
+    (state: ApplicationState) => state.user
+  );
 
   if (!profile)
     return (
@@ -35,7 +40,11 @@ const Profile: React.FC = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(
+      updateUserRequest(name, email, password, oldPassword, confirmPassword)
+    );
+  }
   return (
     <Background>
       <Container>
@@ -101,7 +110,7 @@ const Profile: React.FC = () => {
             onChangeText={setConfirmPassword}
           />
 
-          <SubmitButton onPress={handleSubmit} loading={false}>
+          <SubmitButton onPress={handleSubmit} loading={loading}>
             Atualizar perfil
           </SubmitButton>
         </Form>

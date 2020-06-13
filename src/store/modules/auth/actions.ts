@@ -1,4 +1,4 @@
-import { AuthResponseProps } from "./reducer";
+import { UserProps } from "../user/reducer";
 
 export function loginRequest(email: string, password: string) {
   return {
@@ -10,11 +10,10 @@ export function loginRequest(email: string, password: string) {
   };
 }
 
-export function loginSuccess(token: string, user: AuthResponseProps) {
+export function loginSuccess(token: string, user: UserProps) {
   return {
     type: "@auth/LOGIN_SUCCESS",
     payload: {
-      user,
       token,
     },
   };
