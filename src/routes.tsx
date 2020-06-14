@@ -15,6 +15,7 @@ import SelectProvider, {
 } from "./pages/Appointment/SelectProvider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SelectDate from "./pages/Appointment/SelectDate";
+import ConfirmAppointment from "./pages/Appointment/ConfirmAppointment";
 
 export type RootStackParamList = {
   Sign: undefined;
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   SelectProvider: undefined;
   SelectDate: { provider: ProviderProps };
+  ConfirmAppointment: { provider: ProviderProps; time: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -66,6 +68,20 @@ function NewAppointment() {
       <Stack.Screen
         component={SelectDate}
         name="SelectDate"
+        options={{
+          title: "Selecione um horário",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SelectProvider")}
+            >
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        component={ConfirmAppointment}
+        name="ConfirmAppointment"
         options={{
           title: "Selecione um horário",
           headerLeft: () => (

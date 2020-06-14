@@ -55,6 +55,13 @@ const SelectDate: React.FC<Props> = ({ navigation, route }) => {
     getHoursAvailable();
   }, [date]);
 
+  function handleSelectHour(time: number) {
+    navigation.navigate("ConfirmAppointment", {
+      provider,
+      time,
+    });
+  }
+
   return (
     <Background>
       <Container>
@@ -69,7 +76,7 @@ const SelectDate: React.FC<Props> = ({ navigation, route }) => {
             renderItem={({ item }) => (
               <Hour
                 enabled={item.available}
-                onPress={() => Alert.alert("Clicou")}
+                onPress={() => handleSelectHour(item.value)}
               >
                 <HourText>{item.time}</HourText>
               </Hour>
