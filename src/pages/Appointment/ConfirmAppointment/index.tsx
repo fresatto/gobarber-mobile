@@ -34,7 +34,10 @@ const ConfirmAppointment: React.FC<Props> = ({ navigation, route }) => {
       date: time,
     });
 
-    navigation.navigate("Dashboard");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Dashboard" }],
+    });
   }
 
   return (
