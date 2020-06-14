@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
-
+import { useIsFocused } from "@react-navigation/native";
 import { Container, Title, List } from "./styles";
 import Background from "../../components/Background";
 import Appointment, { AppointmentResponse } from "../../components/Appointment";
@@ -8,20 +8,21 @@ import api from "../../services/api";
 
 const Dashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
+  let focused = useIsFocused();
+  async function loadAppointments() {
+    try {
+      const { data } = await api.get("/appointments");
 
-  useEffect(() => {
-    async function loadAppointments() {
-      try {
-        const { data } = await api.get("/appointments");
-
-        setAppointments(data);
-      } catch (err) {
-        Alert.alert("Erro", "Não foi possível carregar os agendamentos");
-      }
+      setAppointments(data);
+    } catch (err) {
+      Alert.alert("Erro", "Não foi possível carregar os agendamentos");
     }
-
-    loadAppointments();
-  }, []);
+  }
+  useEffect(() => {
+    if (focused) {
+      loadAppointments();
+    }
+  }, [focused]);
 
   async function handleCancel(id: number) {
     const response = await api.delete(`appointments/${id}`);

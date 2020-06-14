@@ -24,7 +24,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   SelectProvider: undefined;
   SelectDate: { provider: ProviderProps };
-  ConfirmAppointment: { provider: ProviderProps; time: number };
+  ConfirmAppointment: { provider: ProviderProps; time: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -83,7 +83,7 @@ function NewAppointment() {
         component={ConfirmAppointment}
         name="ConfirmAppointment"
         options={{
-          title: "Selecione um horário",
+          title: "Confirmar Agendamento",
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate("SelectProvider")}

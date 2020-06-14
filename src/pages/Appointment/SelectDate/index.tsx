@@ -55,7 +55,7 @@ const SelectDate: React.FC<Props> = ({ navigation, route }) => {
     getHoursAvailable();
   }, [date]);
 
-  function handleSelectHour(time: number) {
+  function handleSelectHour(time: string) {
     navigation.navigate("ConfirmAppointment", {
       provider,
       time,
