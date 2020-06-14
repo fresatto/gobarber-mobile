@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { formatRelative, parseISO } from "date-fns";
@@ -8,6 +8,7 @@ import Background from "../../../components/Background";
 import { RootStackParamList } from "../../../routes";
 import { Container, Avatar, Name, Time, SubmitButton } from "./styles";
 import api from "../../../services/api";
+import { Alert } from "react-native";
 
 type NavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const ConfirmAppointment: React.FC<Props> = ({ navigation, route }) => {
+  const [loading, setLoading] = useState(false);
   const { provider, time } = route.params;
 
   const dateFormatted = useMemo(() => {
@@ -29,15 +31,25 @@ const ConfirmAppointment: React.FC<Props> = ({ navigation, route }) => {
   }, [time]);
 
   async function handleAddAppointment() {
-    await api.post(`appointments`, {
-      provider_id: provider.id,
-      date: time,
-    });
+    try {
+      setLoading(true);
+      await api.post(`appointments`, {
+        provider_id: provider.id,
+        date: time,
+      });
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Dashboard" }],
-    });
+      setLoading(false);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Dashboard" }],
+      });
+    } catch (err) {
+      Alert.alert(
+        "Erro",
+        "Não foi possível realizar o agendamento, tente novamente."
+      );
+      setLoading(false);
+    }
   }
 
   return (
@@ -53,7 +65,9 @@ const ConfirmAppointment: React.FC<Props> = ({ navigation, route }) => {
 
         <Name>{provider.name}</Name>
         <Time>{dateFormatted}</Time>
-        <SubmitButton onPress={handleAddAppointment}>Confirmar</SubmitButton>
+        <SubmitButton onPress={handleAddAppointment} loading={loading}>
+          Confirmar
+        </SubmitButton>
       </Container>
     </Background>
   );
