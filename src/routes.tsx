@@ -10,11 +10,22 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
-import SelectProvider from "./pages/Appointment/SelectProvider";
+import SelectProvider, {
+  ProviderProps,
+} from "./pages/Appointment/SelectProvider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SelectDate from "./pages/Appointment/SelectDate";
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Sign: undefined;
+  App: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  SelectProvider: undefined;
+  SelectDate: { provider: ProviderProps };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 function Sign() {
